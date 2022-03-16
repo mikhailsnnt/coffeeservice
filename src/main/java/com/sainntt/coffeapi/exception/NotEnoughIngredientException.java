@@ -1,12 +1,12 @@
 package com.sainntt.coffeapi.exception;
 
-public class NotEnoughIngredientException extends RuntimeException{
+public class NotEnoughIngredientException extends RuntimeException {
     private final String ingredientName;
     private final long amount;
 
 
-    public NotEnoughIngredientException( String ingredientName, long amount) {
-        super(String.format("Not enough of %s , need %d more",ingredientName,amount));
+    public NotEnoughIngredientException(String ingredientName, long amount) {
+        super(String.format("Not enough of %s , need %d more", ingredientName, amount));
         this.ingredientName = ingredientName;
         this.amount = amount;
     }
