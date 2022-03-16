@@ -1,9 +1,14 @@
 package com.sainntt.coffeapi.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Coffee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,5 +18,5 @@ public class Coffee {
             fetch = FetchType.EAGER,
             mappedBy = "coffee"
     )
-    private List<IngredientWithAmount> ingredients;
+    private List<RecipeElement> ingredients;
 }
