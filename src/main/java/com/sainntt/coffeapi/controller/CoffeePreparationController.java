@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(name = "/coffee/prepare")
+@RequestMapping("/coffee/prepare/")
 public class CoffeePreparationController {
     private final CoffeePreparationService service;
 
