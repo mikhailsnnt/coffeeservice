@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,17 +42,19 @@ public class IngredientManagingServiceImpl implements IngredientManagingService 
 
     @Transactional
     @Override
-    public void addIngredient(String name, long amount) {
-        repository.getByName(name)
-                .ifPresentOrElse(
-                        ingredient -> ingredient.setAmountLeft(ingredient.getAmountLeft()+amount),
-                        ()->{
-                            Ingredient ingredient = new Ingredient();
-                            ingredient.setAmountLeft(amount);
-                            ingredient.setName(name);
-                            repository.save(ingredient);
-                        }
-                );
+    public IngredientAmountDto addIngredient(String name, long amount) {
+        Optional<Ingredient> ingOptional = repository.getByName(name);
+        Ingredient ingredient;
+        if (ingOptional.isPresent()) {
+            ingredient = ingOptional.get();
+            ingredient.setAmountLeft(ingredient.getAmountLeft() + amount);
+        } else {
+            ingredient = new Ingredient();
+            ingredient.setAmountLeft(amount);
+            ingredient.setName(name);
+        }
+        repository.save(ingredient);
+        return mapToDto(ingredient);
     }
 
     private IngredientAmountDto mapToDto(Ingredient ingredient) {

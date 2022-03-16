@@ -8,5 +8,5 @@ public interface IngredientManagingService {
     List<IngredientAmountDto> getIngredientsList();
     IngredientAmountDto getIngredientAmount(long id);
     IngredientAmountDto getIngredientAmount(String name);
-    void addIngredient(String name, long amount);
+    IngredientAmountDto addIngredient(String name, long amount);
 }
