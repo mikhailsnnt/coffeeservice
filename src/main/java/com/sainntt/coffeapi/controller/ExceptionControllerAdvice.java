@@ -2,6 +2,7 @@ package com.sainntt.coffeapi.controller;
 
 import com.sainntt.coffeapi.dto.ExceptionDto;
 import com.sainntt.coffeapi.exception.CoffeeNotFoundException;
+import com.sainntt.coffeapi.exception.NotEnoughIngredientException;
 import com.sainntt.coffeapi.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,5 +20,12 @@ public class ExceptionControllerAdvice {
                 new ResponseEntity<>(
                         new ExceptionDto(new Date(), exception.getMessage(), request.getDescription(false)),
                         HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NotEnoughIngredientException.class)
+    public ResponseEntity<ExceptionDto> handleNotEnoughIngredientException(NotEnoughIngredientException exception, WebRequest request) {
+        return new ResponseEntity<>(
+                new ExceptionDto(new Date(), exception.getMessage(), request.getDescription(false)),
+                HttpStatus.BAD_REQUEST);
     }
 }
