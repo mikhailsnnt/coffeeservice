@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CoffeeRecipeServiceImpl implements CoffeeRecipeService {
@@ -28,6 +30,12 @@ public class CoffeeRecipeServiceImpl implements CoffeeRecipeService {
         this.repository = repository;
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
+    }
+
+    @Override
+    public List<CoffeeRecipeDto> getRecipes() {
+        return repository.findAll()
+                .stream().map(this::formRecipe).collect(Collectors.toList());
     }
 
     @Override
